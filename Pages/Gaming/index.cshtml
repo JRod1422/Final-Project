@@ -1,0 +1,76 @@
+@page
+@model Final_Project.Pages.Games.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Game</a><span> | </span>
+    <a asp-page="AddReview">Add Review</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Publisher)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Rating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Game) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.GameID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.GameID">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<hr />
+@{
+    var prevDisabled=" ";
+    if (Model.PageNum <=1)
+    {
+        prevDisabled = "disabled";
+
+    }
+
+}
+
+<nav aria-colspan="Page Navigation">
+    <ul class="Page">
+        <li class="page-item @prevDisabled"><a class="page-link"asp-page="./Index" asp-route-PageNum="@(Model.PageNum -1)">Previous</a></li>
+    </ul>
+</nav>
